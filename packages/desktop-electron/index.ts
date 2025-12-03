@@ -1,23 +1,31 @@
+import * as dotenv from 'dotenv';
 import fs from 'fs';
 import { createServer, Server } from 'http';
 import path from 'path';
 
+// Load .env from project root
+const envPath = path.resolve(__dirname, '../../.env');
+const result = dotenv.config({ path: envPath });
+console.log('Desktop Electron: Loading .env from:', envPath);
+console.log('Desktop Electron: Dotenv result:', result.error ? result.error : 'Success');
+console.log('Desktop Electron: OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? '(Present)' : '(Missing)');
+
 import {
-  net,
-  app,
-  ipcMain,
-  BrowserWindow,
-  Menu,
-  dialog,
-  shell,
-  powerMonitor,
-  protocol,
-  utilityProcess,
-  UtilityProcess,
-  OpenDialogSyncOptions,
-  SaveDialogOptions,
-  Env,
-  ForkOptions,
+    app,
+    BrowserWindow,
+    dialog,
+    Env,
+    ForkOptions,
+    ipcMain,
+    Menu,
+    net,
+    OpenDialogSyncOptions,
+    powerMonitor,
+    protocol,
+    SaveDialogOptions,
+    shell,
+    utilityProcess,
+    UtilityProcess,
 } from 'electron';
 import { copy, exists, mkdir, remove } from 'fs-extra';
 import promiseRetry from 'promise-retry';
@@ -26,8 +34,8 @@ import type { GlobalPrefsJson } from '../loot-core/src/types/prefs';
 
 import { getMenu } from './menu';
 import {
-  get as getWindowState,
-  listen as listenToWindowState,
+    get as getWindowState,
+    listen as listenToWindowState,
 } from './window-state';
 
 import './security';

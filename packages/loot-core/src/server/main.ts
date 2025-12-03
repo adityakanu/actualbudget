@@ -14,6 +14,7 @@ import { Handlers } from '../types/handlers';
 
 import { app as accountsApp } from './accounts/app';
 import { app as adminApp } from './admin/app';
+import { app as aiApp } from './ai/app';
 import { installAPI } from './api';
 import { aqlQuery } from './aql';
 import { app as authApp } from './auth/app';
@@ -42,7 +43,7 @@ import { app as tagsApp } from './tags/app';
 import { app as toolsApp } from './tools/app';
 import { app as transactionsApp } from './transactions/app';
 import * as rules from './transactions/transaction-rules';
-import { undo, redo } from './undo';
+import { redo, undo } from './undo';
 
 // handlers
 
@@ -151,6 +152,7 @@ app.combine(
   budgetFilesApp,
   encryptionApp,
   tagsApp,
+  aiApp,
 );
 
 export function getDefaultDocumentDir() {

@@ -1,7 +1,7 @@
 import path from 'path';
 
 import { visualizer } from 'rollup-plugin-visualizer';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import peggyLoader from 'vite-plugin-peggy-loader';
 
@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
   const outDir = path.resolve(__dirname, 'lib-dist/browser');
   const crdtDir = path.resolve(__dirname, '../crdt');
+
+  // Load env vars from the monorepo root
+  const env = loadEnv(mode, path.resolve(__dirname, '../../'), ['OPENROUTER_']);
 
   return {
     mode,
@@ -83,6 +86,8 @@ export default defineConfig(({ mode }) => {
       'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL || '/'),
       'process.env.ACTUAL_DATA_DIR': JSON.stringify('/'),
       'process.env.ACTUAL_DOCUMENT_DIR': JSON.stringify('/documents'),
+      'process.env.OPENROUTER_API_KEY': JSON.stringify(env.OPENROUTER_API_KEY || ''),
+      'process.env.OPENROUTER_MODEL': JSON.stringify(env.OPENROUTER_MODEL || ''),
     },
     plugins: [
       peggyLoader(),

@@ -1,7 +1,7 @@
 // @ts-strict-ignore
 import React, { type ReactElement, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Route, Routes, Navigate, useLocation, useHref } from 'react-router';
+import { Navigate, Route, Routes, useHref, useLocation } from 'react-router';
 
 import { useResponsive } from '@actual-app/components/hooks/useResponsive';
 import { theme } from '@actual-app/components/theme';
@@ -10,6 +10,7 @@ import { View } from '@actual-app/components/view';
 import * as undo from 'loot-core/platform/client/undo';
 
 import { UserAccessPage } from './admin/UserAccess/UserAccessPage';
+import { Assistant } from './assistant/Assistant';
 import { BankSyncStatus } from './BankSyncStatus';
 import { CommandBar } from './CommandBar';
 import { GlobalKeys } from './GlobalKeys';
@@ -37,7 +38,7 @@ import { useMetaThemeColor } from '@desktop-client/hooks/useMetaThemeColor';
 import { useNavigate } from '@desktop-client/hooks/useNavigate';
 import { ScrollProvider } from '@desktop-client/hooks/useScrollListener';
 import { addNotification } from '@desktop-client/notifications/notificationsSlice';
-import { useSelector, useDispatch } from '@desktop-client/redux';
+import { useDispatch, useSelector } from '@desktop-client/redux';
 
 function NarrowNotSupported({
   redirectTo = '/budget',
@@ -149,14 +150,14 @@ export function FinancesApp() {
               title: t('A new version of Actual is available!'),
               message:
                 (process.env.REACT_APP_IS_PIKAPODS ?? '').toLowerCase() ===
-                'true'
+                  'true'
                   ? t(
-                      'A new version of Actual is available! Your Pikapods instance will be automatically updated in the next few days - no action needed.',
-                    )
+                    'A new version of Actual is available! Your Pikapods instance will be automatically updated in the next few days - no action needed.',
+                  )
                   : t(
-                      'Version {{latestVersion}} of Actual was recently released.',
-                      { latestVersion: versionInfo.latestVersion },
-                    ),
+                    'Version {{latestVersion}} of Actual was recently released.',
+                    { latestVersion: versionInfo.latestVersion },
+                  ),
               sticky: true,
               id: 'update-notification',
               button: {
@@ -299,6 +300,7 @@ export function FinancesApp() {
                   }
                 />
                 <Route path="/tags" element={<ManageTagsPage />} />
+                <Route path="/assistant" element={<Assistant />} />
                 <Route path="/settings" element={<Settings />} />
 
                 <Route

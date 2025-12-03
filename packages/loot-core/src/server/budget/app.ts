@@ -172,7 +172,7 @@ async function getBudgetBounds() {
   return await budget.createAllBudgets();
 }
 
-async function envelopeBudgetMonth({ month }: { month: string }) {
+export async function envelopeBudgetMonth({ month }: { month: string }) {
   const groups = await db.getCategoriesGrouped();
   const sheetName = monthUtils.sheetForMonth(month);
 
@@ -226,7 +226,7 @@ async function envelopeBudgetMonth({ month }: { month: string }) {
   return values;
 }
 
-async function trackingBudgetMonth({ month }: { month: string }) {
+export async function trackingBudgetMonth({ month }: { month: string }) {
   const groups = await db.getCategoriesGrouped();
   const sheetName = monthUtils.sheetForMonth(month);
 

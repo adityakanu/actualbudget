@@ -7,6 +7,9 @@ Actual-*
 **/xcuserdata/*
 export-2020-01-10.csv
 
+# .env
+.env
+
 # MacOS
 .DS_Store
 
